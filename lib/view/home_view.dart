@@ -15,7 +15,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late Set<String> categories;
+  late Set<String> categories = {"All"};
   List<Map<String, dynamic>> todos = [];
   late final SharedPreferences _sharedPreferences;
   bool loading = false;
@@ -69,7 +69,13 @@ class _HomeViewState extends State<HomeView> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const CreatTodoView(),
+                builder: (context) => CreatTodoView(
+                    categories: categories.toList(),
+                    onSave: (e) {
+                      print("ldkdk");
+                      todos.add(e);
+                      print(todos.length);
+                    }),
               ),
             );
           },
@@ -126,6 +132,7 @@ class _HomeViewState extends State<HomeView> {
                       bool isAll = categories.length == index
                           ? false
                           : categories.elementAt(index) == "All";
+                      print(isAll);
                       String currentCategory = categories.length == index
                           ? ""
                           : categories.elementAt(index);

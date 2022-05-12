@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:todo/constants/todo_keys.dart';
 
 class TodoListView extends StatelessWidget {
   const TodoListView({Key? key, required this.todos}) : super(key: key);
@@ -49,7 +50,7 @@ class TodoListView extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: 2,
+                    itemCount: todos.length,
                     itemBuilder: (context, index) => Container(
                           color: Colors.white,
                           child: Row(
@@ -70,18 +71,18 @@ class TodoListView extends StatelessWidget {
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
+                                  children: [
                                     Text(
-                                      "Google Project",
-                                      style: TextStyle(
+                                      todos[index][TodoKeys.title],
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black,
                                       ),
                                     ),
                                     Text(
-                                      "Website Update!",
-                                      style: TextStyle(
+                                      todos[index][TodoKeys.category],
+                                      style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.grey,
@@ -98,9 +99,10 @@ class TodoListView extends StatelessWidget {
                                         border: Border.all(color: Colors.red),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      child: const Center(
+                                      child: Center(
                                         child: Text(
-                                          "10:00 am",
+                                          DateFormat("dd-MMM-yyyy ").format(
+                                              todos[index][TodoKeys.date]),
                                         ),
                                       ),
                                     ),
